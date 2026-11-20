@@ -15,6 +15,37 @@ A small full-stack flight booking app built with **Django REST Framework** and *
 
 > Note: email notifications (Celery) and third-party live flight feeds (AirLabs/OpenSky) are not wired in. Flight status is managed from the admin dashboard and can be refreshed on the flight details screen.
 
+## Additional features beyond the requirements
+
+- Role-aware routing: admins land on the admin dashboard, passengers on the user dashboard
+- Shared navbar/layout with active-link highlighting and one-click logout
+- Session restored from the saved JWT on page load
+- Refresh button on flight details to fetch the latest admin-updated status
+- Responsive layouts, loading states, empty states and inline error messages for every screen
+- Nested flight details returned with each booking so "My Trips" is a single API call
+
+## Screenshots
+
+Screenshots are stored in [`screenshots/`](screenshots/):
+
+| Screen | File |
+| --- | --- |
+| Registration | [11-registration.png](screenshots/11-registration.png) |
+| Login | [01-login.png](screenshots/01-login.png) |
+| Pending user login error | [02-pending-login-401.png](screenshots/02-pending-login-401.png) |
+| Admin dashboard - pending approvals | [03-admin-dashboard-pending.png](screenshots/03-admin-dashboard-pending.png) |
+| Admin approves a user | [04-admin-approved-user.png](screenshots/04-admin-approved-user.png) |
+| User dashboard | [05-user-dashboard.png](screenshots/05-user-dashboard.png) |
+| Flight search results | [06-flight-search.png](screenshots/06-flight-search.png) |
+| Flight details and booking form | [07-flight-details-booking.png](screenshots/07-flight-details-booking.png) |
+| Booking confirmation | [08-booking-confirmation.png](screenshots/08-booking-confirmation.png) |
+| My Trips | [09-my-trips.png](screenshots/09-my-trips.png) |
+| Admin flight status update | [10-admin-flight-status.png](screenshots/10-admin-flight-status.png) |
+
+## Demo video
+
+[`demo-video.mp4`](demo-video.mp4) is a silent screen recording covering pending login → admin approval → approved login → flight search → booking → My Trips → admin flight-status update.
+
 ## Project structure
 
 ```
@@ -37,15 +68,20 @@ python manage.py runserver
 
 The API runs at `http://127.0.0.1:8000/api/`.
 
-### Create an admin for testing
+### Demo credentials
+
+| Role | Username | Password | Notes |
+| --- | --- | --- | --- |
+| Admin | `demo_admin` | `Admin@123` | Staff user; can log in immediately |
+| User | `demo_user` | `User@1234` | Approved in the demo; has one sample booking |
+
+You can also create your own admin:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Staff users can log in without waiting for approval. Use the username/password you create above at `http://127.0.0.1:5173/login`.
-
-To test the approval flow, register a normal user from the UI, then log in as the admin and approve them from the admin dashboard.
+Staff users can log in without waiting for approval. To test the approval flow again, register a normal user from the UI, then log in as the admin and approve them from the admin dashboard.
 
 ## Frontend setup
 
